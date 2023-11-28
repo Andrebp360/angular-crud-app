@@ -5,7 +5,6 @@ import { EmployeeService } from './services/employee.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CoreService } from './core/core.service';
 
 @Component({
   selector: 'app-root',
@@ -14,16 +13,9 @@ import { CoreService } from './core/core.service';
 })
 export class AppComponent implements OnInit {
   displayedColumns: string[] = [
-    'id',
-    'firstName',
-    'lastName',
-    'email',
-    'dob',
-    'gender',
-    'education',
-    'company',
-    'experience',
-    'package',
+    'Nome',
+    'Sobre Nome',
+    'Matrícula',
     'action',
   ];
   dataSource!: MatTableDataSource<any>;
@@ -33,8 +25,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _dialog: MatDialog,
-    private _empService: EmployeeService,
-    private _coreService: CoreService
+    private _empService: EmployeeService
   ) {}
 
   ngOnInit(): void {
@@ -75,7 +66,6 @@ export class AppComponent implements OnInit {
   deleteEmployee(id: number) {
     this._empService.deleteEmployee(id).subscribe({
       next: (res) => {
-        this._coreService.openSnackBar('Employee deleted!', 'done');
         this.getEmployeeList();
       },
       error: console.log,
